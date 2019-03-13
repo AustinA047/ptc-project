@@ -1,6 +1,6 @@
 /************************************************************/
 /* Create the PTC Database                                  */
-/* Thorin Schmidt                                           */
+/* Austin Andrews                                           */
 /* 3/11/2019                                                */
 /************************************************************/
 DROP DATABASE IF EXISTS PTC;
@@ -32,7 +32,7 @@ CREATE TABLE School (
   school_abbr         VARCHAR(3),
   school_district_id  TINYINT,
   PRIMARY KEY(school_id),
-  FOREIGN KEY(school_district_id) REFERENCES District(district_id)
+  FOREIGN KEY district_id(school_district_id) REFERENCES District(district_id)
 );
 
 INSERT INTO School VALUES(1, "St. Charles High", "SCH", 1);
@@ -42,7 +42,14 @@ INSERT INTO School VALUES(4, "Fort Zumwalt North", "FZN", 3);
 INSERT INTO School VALUES(5, "Fort Zumwalt South", "FZS", 3);
 INSERT INTO School VALUES(6, "Fort Zumwalt East", "FZE", 3);
 INSERT INTO School VALUES(7, "Fort Zumwalt West", "FZW", 3);
-
+INSERT INTO School VALUES(8, "Liberty", "WZL", 6);
+INSERT INTO School VALUES(9, "Holt", "WZH", 6);
+INSERT INTO School VALUES(10, "Timberland", "WZT", 6);
+INSERT INTO School VALUES(11, "Francis Howell Central", "FHC", 4);
+INSERT INTO School VALUES(12, "Francis Howell High", "FHH", 4);
+INSERT INTO School VALUES(13, "Francis Howell North", "FHN", 4);
+INSERT INTO School VALUES(14, "Christian High", "CH", 7);
+INSERT INTO School VALUES(15, "Lutheran High", "HH", 5);
 
 
 
@@ -61,3 +68,89 @@ CREATE TABLE Staff (
 
 INSERT INTO Staff VALUES(1,"Thorin", "Schmidt", "CSD", "A107", 
                          "tschmidt@stcharlessd.org", "636-443-4987");
+                         
+INSERT INTO Staff VALUES(2,"Robert", "Turner", "AST2", "A109", 
+                         "roturner@stcharlessd.org", "636-443-4982");
+                         
+INSERT INTO Staff VALUES(3,"Glenn", "Seithel", "AST1", "A108", 
+                         "gseithel@stcharlessd.org", "636-443-4978");
+                         
+INSERT INTO Staff VALUES(4,"Sean", "Crader", "ACR", "A106", 
+                         "scrader@stcharlessd.org", "636-443-4984");
+                         
+INSERT INTO Staff VALUES(5,"Casey", "Lober", "COU", "C101", 
+                         "clober@stcharlessd.org", "636-443-4957"); 
+                         
+INSERT INTO Staff VALUES(6,"Kristin", "Brent", "COU", "C103", 
+                         "kbrent@stcharlessd.org", "636-443-4965"); 
+                         
+INSERT INTO Staff VALUES(7,"Carla", "Johnson", "RES", "B102", 
+                         "carjohnson@stcharlessd.org", "636-443-4971"); 
+                         
+                         
+                         
+CREATE TABLE Student (
+            student_id                      INTEGER,
+            student_fname                   VARCHAR(16),
+            student_lname                   VARCHAR(20),
+            student_staff_id                TINYINT,
+            /*student_image                 LONGVARBUBARY */
+            student_email                   VARCHAR(32),
+            student_isresource              BOOLEAN,
+            student_resource_staff_id       TINYINT,
+            student_counselor_staff_id      TINYINT,
+            student_home_school_id          TINYINT,
+            
+            PRIMARY KEY (student_id),
+            FOREIGN KEY rescoure_id(student_resource_staff_id) REFERENCES Staff(staff_id),
+            FOREIGN KEY counselor_id(student_counselor_staff_id) REFERENCES Staff(staff_id),
+            FOREIGN KEY staff_id(student_staff_id) REFERENCES Staff(staff_id),
+            FOREIGN KEY school_id(student_home_school_id) REFERENCES School(school_id)
+            );
+            
+            /* id fname lname teacher email resource? resource counselor resource home school */
+            INSERT INTO Student VALUES(1,"John", "Smith", 1, "jsmith@stcharlessd.org", false, null, 5, 9);    
+                                                    
+            INSERT INTO Student VALUES(2,"Jane", "Doe", 4, "jdoe@stcharlessd.org", true, 7, 6, 7);
+
+            INSERT INTO Student VALUES(3,"Gary", "Snail", 3, "gasnail@stcharlessd.org", false, null, 5, 11);
+
+            INSERT INTO Student VALUES(4,"Oswald", "Cobblepot", 1, "oswcobblepot@stcharlessd.org", true, 7, 6, 15);
+
+            INSERT INTO Student VALUES(5,"Obi Wan", "Kenobi", 2, "okenobi@stcharlessd.org", true, 7, 5, 2);
+
+            INSERT INTO Student VALUES(6,"Jar Jar", "Binks", 2, "jjbinks@stcharlessd.org", true, 7, 6, 10);
+
+            INSERT INTO Student VALUES(7,"Shaggy", "Rogers", 1, "srogers@stcharlessd.org", false, null, 6, 11);
+
+            INSERT INTO Student VALUES(8,"Squidward", "Tentacles", 4, "stentacles@stcharlessd.org", true, 7, 6, 14);
+
+            INSERT INTO Student VALUES(9,"Sqwilliam", "Fancyson-Tentacles", 1, "sqfancyson@stcharlessd.org", false, null, 6, 14);
+
+
+
+CREATE TABLE Guardian (
+            guardian_id                 INTEGER,
+            guardian_fname              VARCHAR(16),
+            guardian_lname              VARCHAR(20),
+            guardian_address1           VARCHAR(32),
+            guardian_address2           VARCHAR(32),
+            guardian_city               VARCHAR(32),
+            guardian_state              VARCHAR(2),
+            guardian_ZIP                VARCHAR(5),
+            guardian_email              VARCHAR(32),
+            guardian_cell               VARCHAR(12),
+            guardian_home_phone         VARCHAR(12),
+            
+            PRIMARY KEY (guardian_id)
+            );
+            
+            INSERT INTO Guardian VALUES(1,"Bill", "Smith", "22 HighWay Rd", null, "St.Peters", "MO", "11111", "bsmith109@gmail.com", "111-111-1111", null);
+            
+                         
+                         
+                         
+                         
+                         
+                         
+                         
